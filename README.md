@@ -59,18 +59,31 @@ GitHub Pages      | Deployment
 ------------------------------------------------------------
 📁 Project Structure
 
-├── index.html          # Homepage
-├── dashboard.html      # Admin dashboard
-├── report.html         # QR-based report form
-├── script.js           # Main JS logic
-├── dashboard.js        # Dashboard functionality
-├── report.js           # Report handling
-├── style.css           # Styling
-├── server.js           # Backend logic
-├── .env.example        # Environment config
-├── campuscare-logo.jpg # Branding
-├── package.json        # Node dependencies
-├── .gitignore          # Git ignore rules
+```
+campus-care/
+├── public/                        # Frontend static files served to clients
+│   ├── html/
+│   │   ├── index.html           # Homepage
+│   │   ├── dashboard.html       # Admin dashboard
+│   │   └── report.html          # QR-based report form
+│   ├── css/
+│   │   └── style.css            # Styling (shared across all pages)
+│   ├── js/
+│   │   ├── script.js            # Navigation & authentication logic
+│   │   ├── dashboard.js         # Dashboard functionality
+│   │   └── report.js            # Report form handling
+│   └── assets/
+│       └── campuscare-logo.jpg  # Branding assets
+├── server/                        # Backend code
+│   ├── server.js                # Express server & API endpoints
+│   ├── config/                  # Configuration files (future: DB config)
+│   ├── routes/                  # API route handlers (future separation)
+│   └── middleware/              # Custom middleware (future: auth, validation)
+├── package.json                 # Node dependencies
+├── .env.example                 # Environment variables template
+├── .gitignore                   # Git ignore rules
+└── README.md                    # Project documentation
+```
 
 ------------------------------------------------------------
 ⚙️ Installation
@@ -84,10 +97,33 @@ GitHub Pages      | Deployment
 
 3. Set up environment variables:
    - Copy .env.example to .env
-   - Add necessary config (e.g., admin credentials)
+   - Add necessary config (SUPABASE_URL, SUPABASE_ANON_KEY, GEMINI_API_KEY)
 
 4. Run the server:
-   node server.js
+   npm start
+   The server will start at http://localhost:3001
+
+5. Access the application:
+   - Homepage: http://localhost:3001 or http://localhost:3001/html/index.html
+   - Admin Dashboard: http://localhost:3001/html/dashboard.html
+   - Report Form: http://localhost:3001/html/report.html
+
+------------------------------------------------------------
+📝 Development Notes
+
+**Current Database:** Supabase (PostgreSQL)
+
+**Upcoming Migration:** MongoDB
+- The `/server/config/` directory is prepared for database abstraction
+- Migration to MongoDB will be implemented in phases
+- No changes needed to the frontend as the API remains consistent
+
+**Project Architecture Benefits:**
+- Clear separation of concerns: `/public` for frontend, `/server` for backend
+- Modular structure enables easy feature addition and maintenance
+- Database-agnostic API design simplifies future migrations
+- Future route organization ready in `/server/routes/`
+- Middleware support prepared in `/server/middleware/` for authentication & validation
 
 ------------------------------------------------------------
 ▶️ Usage

@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const analyticsTimeRange = document.getElementById('analytics-time-range');
     const resolutionTimeChart = document.getElementById('resolution-time-chart');
     const issueTypeChart = document.getElementById('issue-type-chart');
-    const facilityChart = document.getElementById('facility-chart');
     const priorityTrendChart = document.getElementById('priority-trend-chart');
 
     // Issue Types Configuration
@@ -85,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadFacilities = async () => {
         try {
             console.log('Fetching facilities from API...');
-            const response = await fetch('http://localhost:3001/api/facilities');
+            const response = await fetch('/api/facilities');
             if (!response.ok) {
                 throw new Error(`Failed to fetch facilities: ${response.status}`);
             }
@@ -141,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Enhanced Helper to load reports from backend API
     const loadReports = async () => {
         try {
-            const response = await fetch('http://localhost:3001/api/issues');
+            const response = await fetch('/api/issues');
             
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -259,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to update issue status
     const updateIssueStatus = async (issueId, status, actionRemarks) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/issues/${issueId}`, {
+            const response = await fetch(`/api/issues/${issueId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -494,37 +493,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     plugins: {
                         legend: {
                             position: 'right'
-                        }
-                    }
-                }
-            });
-        }
-
-        // Facility Analysis Chart
-        const facilityCtx = getChartContext('facility-chart');
-        if (facilityCtx) {
-            const facilityData = calculateFacilityAnalysis(reports);
-            
-            new Chart(facilityCtx, {
-                type: 'bar',
-                data: {
-                    labels: Object.keys(facilityData),
-                    datasets: [{
-                        label: 'Number of Issues',
-                        data: Object.values(facilityData),
-                        backgroundColor: '#00c851'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Number of Issues'
-                            }
                         }
                     }
                 }
@@ -945,11 +913,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Navigation handlers
     backButton.addEventListener('click', () => {
-        window.location.href = 'index.html';
+        window.location.href = '/';
     });
 
     newReportButton.addEventListener('click', () => {
-        window.location.href = 'report.html';
+        window.location.href = '/report.html';
     });
 
     // Initialize the dashboard

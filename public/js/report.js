@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Send FormData to backend
-            const response = await fetch('http://localhost:3001/api/issues', {
+            const response = await fetch('/api/issues', {
                 method: 'POST',
                 body: formData
                 // Content-Type is set automatically by the browser
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             successAlert.style.display = 'flex';
             setTimeout(() => {
                 alert('Report submitted successfully!');
-                window.location.href = 'index.html'; // Redirect to home page
+                window.location.href = '/'; // Redirect to home page
             }, 1000);
 
             // Reset form after successful submission
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Back button navigation
     backButton.addEventListener('click', () => {
-        window.location.href = 'index.html';
+        window.location.href = '/';
     });
 
     // No local reports to load

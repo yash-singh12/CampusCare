@@ -10,22 +10,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (homeButton) {
         homeButton.addEventListener('click', () => {
-            window.location.href = 'index.html';
+            window.location.href = '/';
         });
     }
     if (reportHeaderButton) {
         reportHeaderButton.addEventListener('click', () => {
-            window.location.href = 'report.html';
+            window.location.href = '/report.html';
         });
     }
     if (reportButton) {
         reportButton.addEventListener('click', () => {
-            window.location.href = 'report.html';
+            window.location.href = '/report.html';
         });
     }
     if (dashboardButton) {
         dashboardButton.addEventListener('click', () => {
-            window.location.href = 'dashboard.html';
+            window.location.href = '/dashboard.html';
         });
     }
 
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const username = adminUsername.value.trim();
             const password = adminPassword.value;
             if (username === 'admin123' && password === '1234') {
-                window.location.href = 'dashboard.html';
+                window.location.href = '/dashboard.html';
             } else {
                 adminError.textContent = 'Invalid credentials. Try admin123 / 1234';
                 adminError.style.display = 'block';
