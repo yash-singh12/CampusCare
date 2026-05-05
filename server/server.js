@@ -164,9 +164,9 @@ app.put('/api/issues/:id', async (req, res) => {
   }
 });
 
-// Basic route for testing server status
+// Serve the frontend entry point at root
 app.get('/', (req, res) => {
-  res.send('CampusCare Server is running!');
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 // POST /api/issues (with image upload)
