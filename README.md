@@ -2,10 +2,11 @@
 
 Originally developed during a hackathon under the team name Priority Thread. Rebranded to CampusCare to reflect its mission and impact.
 
-🛡️ Women’s Safety | 🏫 Campus Hygiene | 📱 QR-Based Reporting
+Women’s safety | Campus hygiene | QR-based reporting
 
-------------------------------------------------------------
-📖 Table of Contents
+---
+
+## Table of Contents
 
 - Problem Statement
 - Solution Overview
@@ -13,150 +14,186 @@ Originally developed during a hackathon under the team name Priority Thread. Reb
 - Tech Stack
 - Project Structure
 - Installation
+- Environment Variables
 - Usage
-- Deployment
+- API Endpoints
+- Data Model
+- Deployment Notes
 - Team
 - Contributing
 - License
-- Contact
 
-------------------------------------------------------------
-📌 Problem Statement
+---
 
-WS-01: Menstrual Hygiene Infrastructure in Educational Institutions
+## Problem Statement
 
-Many campuses lack adequate menstrual hygiene support—stocked dispensers, clean restrooms, disposal bins, and responsive policies. Students face discomfort and poor hygiene, while administrators lack visibility into on-ground conditions. There's no standardized or anonymous system to monitor, report, or improve these facilities.
+WS-01: Menstrual hygiene infrastructure in educational institutions.
 
-------------------------------------------------------------
-💡 Solution Overview
+Many campuses lack adequate menstrual hygiene support (stocked dispensers, clean restrooms, disposal bins, and responsive policies). Students face discomfort and poor hygiene, while administrators lack visibility into on-ground conditions. There is no standardized or anonymous system to monitor, report, or improve these facilities.
+
+---
+
+## Solution Overview
 
 CampusCare is a web-based platform that empowers students to anonymously report menstrual hygiene issues using QR codes placed across campus. It provides:
 
 - QR-based reporting for quick issue submission
 - Admin dashboard to monitor reports and take action
-- Accessible UI with dropdowns and responsive design
-- Admin login for secure access to reports
+- Responsive UI for mobile and desktop
+- Priority classification powered by Gemini
 
-------------------------------------------------------------
-✨ Features
+---
+
+## Features
 
 - Anonymous issue reporting via QR codes
-- Admin dashboard with real-time report tracking
+- Admin dashboard with report tracking and status updates
+- Gemini-powered priority generation (Critical/High/Medium/Low)
+- Image upload support stored in MongoDB
 - Responsive design for mobile and desktop
-- Dropdown-based issue categorization
-- Secure login for administrators
 
-------------------------------------------------------------
-🧰 Tech Stack
+---
 
-Technology         | Purpose
-------------------|------------------------
-HTML/CSS/JS       | Frontend interface
-Node.js           | Backend server
-QR Code Integration | Anonymous reporting
-GitHub Pages      | Deployment
+## Tech Stack
 
-------------------------------------------------------------
-📁 Project Structure
+Technology | Purpose
+---|---
+HTML/CSS/JS | Frontend interface
+Node.js + Express | Backend server
+MongoDB Atlas + Mongoose | Database
+Gemini API | Priority classification
+Multer | Image uploads
+
+---
+
+## Project Structure
 
 ```
 campus-care/
-├── public/                        # Frontend static files served to clients
-│   ├── html/
-│   │   ├── index.html           # Homepage
-│   │   ├── dashboard.html       # Admin dashboard
-│   │   └── report.html          # QR-based report form
+├── public/                     # Frontend static files
+│   ├── index.html              # Homepage
+│   ├── dashboard.html          # Admin dashboard
+│   ├── report.html             # QR-based report form
+│   ├── html/                   # Legacy/alternate entry points
 │   ├── css/
-│   │   └── style.css            # Styling (shared across all pages)
+│   │   └── style.css
 │   ├── js/
-│   │   ├── script.js            # Navigation & authentication logic
-│   │   ├── dashboard.js         # Dashboard functionality
-│   │   └── report.js            # Report form handling
+│   │   ├── script.js
+│   │   ├── dashboard.js
+│   │   └── report.js
 │   └── assets/
-│       └── campuscare-logo.jpg  # Branding assets
-├── server/                        # Backend code
-│   ├── server.js                # Express server & API endpoints
-│   ├── config/                  # Configuration files (future: DB config)
-│   ├── routes/                  # API route handlers (future separation)
-│   └── middleware/              # Custom middleware (future: auth, validation)
-├── package.json                 # Node dependencies
-├── .env.example                 # Environment variables template
-├── .gitignore                   # Git ignore rules
-└── README.md                    # Project documentation
+├── server/
+│   ├── server.js               # Express server & API endpoints
+│   ├── config/
+│   │   ├── mongodb.js           # MongoDB connection
+│   │   └── schemas.js           # Mongoose schemas
+│   ├── routes/                 # Future route separation
+│   ├── middleware/             # Future middleware
+│   └── seeds/
+│       └── seedFacilities.js    # Facility seed script
+├── MONGODB_MIGRATION.md         # Migration guide and notes
+├── package.json
+└── README.md
 ```
 
-------------------------------------------------------------
-⚙️ Installation
+---
+
+## Installation
 
 1. Clone the repository:
+   ```bash
    git clone https://github.com/Harsh-shrivastav/campus-care.git
    cd campus-care
+   ```
 
 2. Install dependencies:
+   ```bash
    npm install
+   ```
 
-3. Set up environment variables:
-   - Copy .env.example to .env
-   - Add necessary config (SUPABASE_URL, SUPABASE_ANON_KEY, GEMINI_API_KEY)
-
-4. Run the server:
+3. Start the server:
+   ```bash
    npm start
-   The server will start at http://localhost:3001
+   ```
 
-5. Access the application:
-   - Homepage: http://localhost:3001 or http://localhost:3001/html/index.html
-   - Admin Dashboard: http://localhost:3001/html/dashboard.html
-   - Report Form: http://localhost:3001/html/report.html
+The server will start at http://localhost:3001.
 
-------------------------------------------------------------
-📝 Development Notes
+---
 
-**Current Database:** Supabase (PostgreSQL)
+## Environment Variables
 
-**Upcoming Migration:** MongoDB
-- The `/server/config/` directory is prepared for database abstraction
-- Migration to MongoDB will be implemented in phases
-- No changes needed to the frontend as the API remains consistent
+Create a `.env` file at the project root with:
 
-**Project Architecture Benefits:**
-- Clear separation of concerns: `/public` for frontend, `/server` for backend
-- Modular structure enables easy feature addition and maintenance
-- Database-agnostic API design simplifies future migrations
-- Future route organization ready in `/server/routes/`
-- Middleware support prepared in `/server/middleware/` for authentication & validation
+```
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/campuscare?retryWrites=true&w=majority
+GEMINI_API_KEY=your_gemini_api_key
+PORT=3001
+```
 
-------------------------------------------------------------
-▶️ Usage
+See [MONGODB_MIGRATION.md](MONGODB_MIGRATION.md) for setup details.
 
-- Scan a QR code placed on campus to access the report form
-- Submit hygiene-related issues anonymously
-- Admins can log in to view and manage reports via the dashboard
+---
 
-------------------------------------------------------------
-🚀 Deployment
+## Usage
 
-Live at: https://harsh-shrivastav.github.io/campus-care/
+- Homepage: http://localhost:3001
+- Admin dashboard: http://localhost:3001/dashboard.html
+- Report form: http://localhost:3001/report.html
 
-------------------------------------------------------------
-👥 Team
+Optional: seed facilities before first use:
 
-Team Name: Priority Thread  
+```bash
+node server/seeds/seedFacilities.js
+```
+
+---
+
+## API Endpoints
+
+- `GET /api/issues` - List all issues
+- `POST /api/issues` - Create a new issue (supports image upload)
+- `PUT /api/issues/:id` - Update issue status and remarks
+- `GET /api/facilities` - List facilities
+- `POST /generate-priority` - Generate priority from issue details
+
+---
+
+## Data Model
+
+**Issue**
+- `issue_type`, `facility_id` (required)
+- `description`, `image_url` (optional)
+- `status` (Reported, In Progress, Resolved, On Hold)
+- `priority` (Critical, High, Medium, Low)
+
+**Facility**
+- `facility_id` (unique)
+- `name`, `building`, `floor`
+- `room_number` (optional)
+
+---
+
+## Deployment Notes
+
+Deployment is available. See [DEPLOYMENT.md](DEPLOYMENT.md) for Render steps.
+
+---
+
+## Team
+
+Team Name: Priority Thread
 
 Members: Harsh Shrivastava, Priyanshu Yadav, Yash Singh, MD Ehtesham
 
-------------------------------------------------------------
-🤝 Contributing
+---
 
-Contributions are welcome! Feel free to fork the repo, submit pull requests, or open issues.
+## Contributing
 
-------------------------------------------------------------
-📄 License
+Contributions are welcome. Please open an issue or submit a pull request.
+
+---
+
+## License
 
 This project is licensed under the MIT License.
-
-------------------------------------------------------------
-📣 Contact
-
-GitHub: https://github.com/Harsh-shrivastav  
-LinkedIn: https://www.linkedin.com/in/harsh-shrivastava/  
 
