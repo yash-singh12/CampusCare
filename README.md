@@ -175,7 +175,9 @@ node server/seeds/seedFacilities.js
 
 ## Deployment Notes
 
-Deployment is available. See [DEPLOYMENT.md](DEPLOYMENT.md) for Render steps.
+Live on Render: https://campuscare-cvee.onrender.com
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for Render steps.
 
 ---
 
